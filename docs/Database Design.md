@@ -7,11 +7,11 @@ Main Entities
   - Exams
   - Results
   - Courses 
-  - 
+    
 
 2. ER Diagram 
 
-```plantuml
+plantuml
 @startuml
 entity Users {
   +user_id : INT <<PK>>
@@ -53,7 +53,7 @@ entity Results {
   grade : VARCHAR
 }
 
-' Relationships
+Relationships
 Courses ||--o{ Students
 Students ||--o{ Results
 Subjects ||--o{ Results
@@ -61,16 +61,16 @@ Exams ||--o{ Results
 Users ||--|| Students : "login for"
 
 @enduml
-```
+
 
 4. MySQL Database Creation (FULL SCRIPT)
 
 Database
 
-```sql
+sql
 CREATE DATABASE student_result_system;
 USE student_result_system;
-```
+
 
 
 
@@ -78,16 +78,16 @@ Tables
 
 1. Courses
 
-```sql
+sql
 CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL
 );
-```
+
 
 2. Students
 
-```sql
+sql
 CREATE TABLE students (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -95,33 +95,32 @@ CREATE TABLE students (
     course_id INT,
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
-```
+
 
 3. Subjects
 
-```sql
+sql
 CREATE TABLE subjects (
     subject_id INT AUTO_INCREMENT PRIMARY KEY,
     subject_name VARCHAR(100) NOT NULL,
     credits INT NOT NULL
 );
-```
 
----
+
 
 4. Exams
 
-```sql
+sql
 CREATE TABLE exams (
     exam_id INT AUTO_INCREMENT PRIMARY KEY,
     exam_name VARCHAR(100),
     exam_date DATE
 );
-```
+
 
 5. Users
 
-```sql
+sql
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE,
@@ -130,11 +129,11 @@ CREATE TABLE users (
     student_id INT,
     FOREIGN KEY (student_id) REFERENCES students(student_id)
 );
-```
+
 
 6. Results
 
-```sql
+sql
 CREATE TABLE results (
     result_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT,
@@ -147,22 +146,20 @@ CREATE TABLE results (
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
     FOREIGN KEY (exam_id) REFERENCES exams(exam_id)
 );
-```
 
----
 
 5. Add Constraints & Indexes
 
-```sql
+sql
 CREATE INDEX idx_student ON results(student_id);
 CREATE INDEX idx_subject ON results(subject_id);
-```
+
 
 6. Stored Procedures 
 
 1. Get Student Results
 
-```sql
+sql
 DELIMITER //
 
 CREATE PROCEDURE GetStudentResults(IN sid INT)
@@ -175,13 +172,11 @@ BEGIN
 END //
 
 DELIMITER ;
-```
 
----
 
 2. Insert Result
 
-```sql
+sql
 DELIMITER //
 
 CREATE PROCEDURE AddResult(
@@ -196,11 +191,11 @@ BEGIN
 END //
 
 DELIMITER ;
-```
+
 
 3. Calculate Average
 
-```sql
+sql
 DELIMITER //
 
 CREATE PROCEDURE GetAverage(IN sid INT)
@@ -211,13 +206,13 @@ BEGIN
 END //
 
 DELIMITER ;
-```
+
 
 7. Triggers 
 
 Grade Calculation Trigger
 
-```sql
+sql
 DELIMITER //
 
 CREATE TRIGGER before_insert_result
@@ -236,12 +231,12 @@ BEGIN
 END //
 
 DELIMITER ;
-```
+
 
 
 Update Trigger
 
-```sql
+sql
 DELIMITER //
 
 CREATE TRIGGER before_update_result
@@ -258,35 +253,33 @@ BEGIN
 END //
 
 DELIMITER ;
-```
+
 
 8. Views
 
 Student Summary
 
-```sql
+sql
 CREATE VIEW student_summary AS
 SELECT student_id, AVG(marks) AS avg_marks
 FROM results
 GROUP BY student_id;
-```
+
 
 Top Students
 
-```sql
+sql
 CREATE VIEW top_students AS
 SELECT s.name, AVG(r.marks) AS avg_marks
 FROM results r
 JOIN students s ON r.student_id = s.student_id
 GROUP BY r.student_id
 ORDER BY avg_marks DESC;
-```
 
----
 
 9. Transaction Example
 
-```sql
+sql
 START TRANSACTION;
 
 INSERT INTO results(student_id, subject_id, exam_id, marks)
@@ -295,12 +288,12 @@ VALUES (1, 1, 1, 80);
 UPDATE students SET name = 'Updated Name' WHERE student_id = 1;
 
 COMMIT;
-```
+
 
 
 10. Sample Data 
 
-```sql
+sql
 INSERT INTO courses (course_name) VALUES ('IT'), ('Business');
 
 INSERT INTO students (name, email, course_id)
@@ -311,4 +304,4 @@ VALUES ('Database', 3), ('Programming', 4);
 
 INSERT INTO exams (exam_name, exam_date)
 VALUES ('Mid Exam', '2026-05-01');
-```
+
