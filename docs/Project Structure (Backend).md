@@ -1,10 +1,4 @@
-Great—now let’s build a **clean, best-practice PHP (PDO) backend** for your _Student Result System_ that fully matches your database and assignment rules (prepared statements, CRUD, structured layers, reusable code).
-
-I’ll give you a **ready-to-use backend structure + full code**.
-
----
-
-# 🏗️ 1. Project Structure (Backend Focus)
+1. Project Structure (Backend Focus)
 
 ```bash
 student-result-system/
@@ -36,9 +30,9 @@ student-result-system/
 
 ---
 
-# ⚙️ 2. Database Configuration (PDO)
+2. Database Configuration (PDO)
 
-## 📁 `config/database.php`
+`config/database.php`
 
 ```php
 <?php
@@ -75,9 +69,9 @@ class Database {
 
 ---
 
-# 📦 3. Base Response Helper
+3. Base Response Helper
 
-## 📁 `core/Response.php`
+`core/Response.php`
 
 ```php
 <?php
@@ -108,9 +102,9 @@ class Response {
 
 ---
 
-# 👤 4. Student Model (CRUD)
+4. Student Model (CRUD)
 
-## 📁 `models/Student.php`
+`models/Student.php`
 
 ```php
 <?php
@@ -174,9 +168,9 @@ class Student {
 
 ---
 
-# 📊 5. Result Model (Using Stored Procedure)
+5. Result Model (Using Stored Procedure)
 
-## 📁 `models/Result.php`
+`models/Result.php`
 
 ```php
 <?php
@@ -212,9 +206,9 @@ class Result {
 
 ---
 
-# 🔐 6. Auth Model (Login System)
+6. Auth Model (Login System)
 
-## 📁 `models/User.php`
+`models/User.php`
 
 ```php
 <?php
@@ -247,9 +241,9 @@ class User {
 
 ---
 
-# 🎮 7. Controllers
+7. Controllers
 
-## 📁 `controllers/StudentController.php`
+`controllers/StudentController.php`
 
 ```php
 <?php
@@ -295,9 +289,9 @@ class StudentController {
 
 ---
 
-# 🌐 8. Routing System
+8. Routing System
 
-## 📁 `routes/api.php`
+`routes/api.php`
 
 ```php
 <?php
@@ -343,9 +337,9 @@ switch ($method) {
 
 ---
 
-# 🚪 9. Entry Point
+9. Entry Point
 
-## 📁 `index.php`
+`index.php`
 
 ```php
 <?php
