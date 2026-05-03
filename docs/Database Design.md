@@ -1,21 +1,15 @@
-1. Final Database Design (Before ER)
+1. Database Design
 
-We’ll design a **complete, normalized Student Result System** (≥ 5 tables + relationships).
+Main Entities
+  - Users (login system)
+  - Students
+  - Subjects
+  - Exams
+  - Results
+  - Courses 
+  - 
 
-## ✅ Main Entities
-
-- Users (login system)
-- Students
-- Subjects
-- Exams
-- Results
-- Courses (optional but good for normalization)
-
----
-
-# 📐 2. ER Diagram (PlantUML Code)
-
-👉 You can paste this into **PlantUML Online** or VS Code extension.
+2. ER Diagram 
 
 ```plantuml
 @startuml
@@ -69,34 +63,20 @@ Users ||--|| Students : "login for"
 @enduml
 ```
 
----
+4. MySQL Database Creation (FULL SCRIPT)
 
-# 🧩 3. ER Explanation (For Your PDF)
-
-- One **Course** → many Students
-- One **Student** → many Results
-- One **Subject** → many Results
-- One **Exam** → many Results
-- One **User** ↔ one Student (optional mapping)
-
-👉 This satisfies **relational design + normalization**
-
----
-
-# 🗄️ 4. MySQL Database Creation (FULL SCRIPT)
-
-## 🔹 Step 1: Create Database
+Database
 
 ```sql
 CREATE DATABASE student_result_system;
 USE student_result_system;
 ```
 
----
 
-## 🔹 Step 2: Create Tables
 
-### ✅ 1. Courses
+Tables
+
+1. Courses
 
 ```sql
 CREATE TABLE courses (
@@ -105,9 +85,7 @@ CREATE TABLE courses (
 );
 ```
 
----
-
-### ✅ 2. Students
+2. Students
 
 ```sql
 CREATE TABLE students (
@@ -119,9 +97,7 @@ CREATE TABLE students (
 );
 ```
 
----
-
-### ✅ 3. Subjects
+3. Subjects
 
 ```sql
 CREATE TABLE subjects (
@@ -133,7 +109,7 @@ CREATE TABLE subjects (
 
 ---
 
-### ✅ 4. Exams
+4. Exams
 
 ```sql
 CREATE TABLE exams (
@@ -143,9 +119,7 @@ CREATE TABLE exams (
 );
 ```
 
----
-
-### ✅ 5. Users
+5. Users
 
 ```sql
 CREATE TABLE users (
@@ -158,9 +132,7 @@ CREATE TABLE users (
 );
 ```
 
----
-
-### ✅ 6. Results
+6. Results
 
 ```sql
 CREATE TABLE results (
@@ -179,18 +151,16 @@ CREATE TABLE results (
 
 ---
 
-# 🔐 5. Add Constraints & Indexes
+5. Add Constraints & Indexes
 
 ```sql
 CREATE INDEX idx_student ON results(student_id);
 CREATE INDEX idx_subject ON results(subject_id);
 ```
 
----
+6. Stored Procedures 
 
-# ⚙️ 6. Stored Procedures (REQUIRED ≥ 3)
-
-### ✅ 1. Get Student Results
+1. Get Student Results
 
 ```sql
 DELIMITER //
@@ -209,7 +179,7 @@ DELIMITER ;
 
 ---
 
-### ✅ 2. Insert Result
+2. Insert Result
 
 ```sql
 DELIMITER //
@@ -228,9 +198,7 @@ END //
 DELIMITER ;
 ```
 
----
-
-### ✅ 3. Calculate Average
+3. Calculate Average
 
 ```sql
 DELIMITER //
@@ -245,11 +213,9 @@ END //
 DELIMITER ;
 ```
 
----
+7. Triggers 
 
-# ⚡ 7. Triggers (REQUIRED ≥ 2)
-
-### ✅ Grade Calculation Trigger
+Grade Calculation Trigger
 
 ```sql
 DELIMITER //
@@ -272,9 +238,8 @@ END //
 DELIMITER ;
 ```
 
----
 
-### ✅ Update Trigger
+Update Trigger
 
 ```sql
 DELIMITER //
@@ -295,11 +260,9 @@ END //
 DELIMITER ;
 ```
 
----
+8. Views
 
-# 👁️ 8. Views (REQUIRED ≥ 2)
-
-### ✅ Student Summary
+Student Summary
 
 ```sql
 CREATE VIEW student_summary AS
@@ -308,9 +271,7 @@ FROM results
 GROUP BY student_id;
 ```
 
----
-
-### ✅ Top Students
+Top Students
 
 ```sql
 CREATE VIEW top_students AS
@@ -323,7 +284,7 @@ ORDER BY avg_marks DESC;
 
 ---
 
-# 🔄 9. Transaction Example
+9. Transaction Example
 
 ```sql
 START TRANSACTION;
@@ -336,9 +297,8 @@ UPDATE students SET name = 'Updated Name' WHERE student_id = 1;
 COMMIT;
 ```
 
----
 
-# 🧪 10. Sample Data (IMPORTANT for demo)
+10. Sample Data 
 
 ```sql
 INSERT INTO courses (course_name) VALUES ('IT'), ('Business');
@@ -352,31 +312,3 @@ VALUES ('Database', 3), ('Programming', 4);
 INSERT INTO exams (exam_name, exam_date)
 VALUES ('Mid Exam', '2026-05-01');
 ```
-
----
-
-# ✅ What You Have Now
-
-✔ ER Diagram (PlantUML)
-✔ Fully normalized database
-✔ All tables + relationships
-✔ Stored procedures
-✔ Triggers
-✔ Views
-✔ Indexes
-✔ Transaction
-
-👉 This already covers **~60%+ marks** 🔥
-
----
-
-# 🚀 Next Step
-
-If you want, I can:
-
-- ✔ Convert ER diagram into **image (for PDF)**
-- ✔ Create **schema.sql file ready**
-- ✔ Help you **connect PHP (PDO)**
-- ✔ Build **full CRUD system**
-
-Just tell me 👍
