@@ -64,6 +64,8 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
+
 CREATE PROCEDURE GetAverage(IN sid INT)
 BEGIN
     SELECT AVG(marks) AS average_marks
