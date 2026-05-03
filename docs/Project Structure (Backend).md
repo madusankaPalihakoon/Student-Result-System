@@ -348,15 +348,15 @@ require_once "routes/api.php";
 
 ---
 
-# 🧪 10. How to Test (Postman / Browser)
+10. How to Test (Postman / Browser)
 
-### 🔹 Get all students
+Get all students
 
 ```
 GET http://localhost/student-result-system/index.php
 ```
 
-### 🔹 Create student
+Create student
 
 ```
 POST
@@ -368,13 +368,13 @@ Body JSON:
 }
 ```
 
-### 🔹 Update
+Update
 
 ```
 PUT ?id=1
 ```
 
-### 🔹 Delete
+Delete
 
 ```
 DELETE ?id=1
@@ -382,7 +382,7 @@ DELETE ?id=1
 
 ---
 
-# 🔐 11. Password Hashing (IMPORTANT)
+11. Password Hashing (IMPORTANT)
 
 When inserting users:
 
@@ -392,24 +392,3 @@ $password = password_hash("123456", PASSWORD_DEFAULT);
 
 ---
 
-# ✅ What This Covers
-
-✔ PDO (prepared statements)
-✔ Full CRUD
-✔ Stored procedure usage
-✔ Clean architecture
-✔ API-ready backend
-✔ Assignment rules compliance
-
----
-
-# 🚀 Next Step
-
-If you want, I can:
-
-- ✔ Build **Frontend (HTML + Bootstrap)**
-- ✔ Add **Login + Session UI**
-- ✔ Create **Report Dashboard**
-- ✔ Prepare **PDF documentation ready for submission**
-
-Just tell me 👍
