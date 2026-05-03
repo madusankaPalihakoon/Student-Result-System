@@ -3,8 +3,8 @@
 A Student Result System is a web application to:
         - Manage students, subjects, and marks
         - Calculate results (pass/fail, GPA, averages)
-        - Allow **Admin** to manage data
-        - Allow **Users (students)** to view results
+        - Allow admin to manage data
+        - Allow users (students) to view results
 
 2. System Architecture 
 
@@ -21,7 +21,6 @@ A Student Result System is a web application to:
 
 3. Project Folder Structure
 
-```
 student-result-system/
 │
 ├── config/
@@ -49,7 +48,7 @@ student-result-system/
 │   └── views.sql
 │
 └── index.php
-```
+
 
 4. Database Design
 
@@ -59,49 +58,46 @@ Tables Design
 
 1. users
 
-```sql
+sql
 user_id (PK)
 username
 password
 role (admin/student)
-```
+
 
 2. students
 
-```sql
+sql
 student_id (PK)
 name
 email
 course
-```
+
 
 3. subjects
 
-```sql
+sql
 subject_id (PK)
 subject_name
 credits
-```
 
 4. results
 
-```sql
+sql
 result_id (PK)
 student_id (FK)
 subject_id (FK)
 marks
 grade
-```
+
 
 5. exams
 
-```sql
+sql
 exam_id (PK)
 exam_name
 date
-```
 
----
 
 Relationships
     - Student → Results (1:M)
@@ -113,7 +109,7 @@ Relationships
 
     1. Stored Procedures 
 
-```sql
+sql
 CREATE PROCEDURE GetStudentResults(IN sid INT)
 BEGIN
     SELECT s.name, sub.subject_name, r.marks
@@ -122,12 +118,12 @@ BEGIN
     JOIN subjects sub ON r.subject_id = sub.subject_id
     WHERE s.student_id = sid;
 END;
-```
+
 
    2. Triggers 
 
 
-```sql
+sql
 CREATE TRIGGER calculate_grade
 BEFORE INSERT ON results
 FOR EACH ROW
@@ -140,37 +136,37 @@ BEGIN
         SET NEW.grade = 'F';
     END IF;
 END;
-```
+
 
 3. Views
 
-```sql
+sql
 CREATE VIEW student_summary AS
 SELECT student_id, AVG(marks) AS average_marks
 FROM results
 GROUP BY student_id;
-```
 
----
+
+
 
 4. Index
 
-```sql
+sql
 CREATE INDEX idx_student_id ON results(student_id);
-```
 
----
+
+
 
 5. Transaction Example
 
-```sql
+sql
 START TRANSACTION;
 
 INSERT INTO results VALUES (...);
 UPDATE students SET ...;
 
 COMMIT;
-```
+
 
 6. Complex Queries 
     - JOIN
@@ -196,10 +192,10 @@ COMMIT;
 
  Database Connection
 
-```php
+php
 $conn = new PDO("mysql:host=localhost;dbname=student_db", "root", "");
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-```
+
 
 8. UI Pages 
 
