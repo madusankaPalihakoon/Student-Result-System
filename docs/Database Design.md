@@ -1,9 +1,4 @@
-Good approach—**database first = high marks** 💯
-Let’s do this properly step by step.
-
----
-
-# 🧠 1. Final Database Design (Before ER)
+1. Final Database Design (Before ER)
 
 We’ll design a **complete, normalized Student Result System** (≥ 5 tables + relationships).
 
