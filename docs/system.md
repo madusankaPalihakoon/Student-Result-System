@@ -1,10 +1,10 @@
 1. Project Overview (What You Are Building)
 
 A Student Result System is a web application to:
-    - Manage students, subjects, and marks
-    - Calculate results (pass/fail, GPA, averages)
-    - Allow **Admin** to manage data
-    - Allow **Users (students)** to view results
+        - Manage students, subjects, and marks
+        - Calculate results (pass/fail, GPA, averages)
+        - Allow **Admin** to manage data
+        - Allow **Users (students)** to view results
 
 2. System Architecture 
 
