@@ -1,7 +1,7 @@
 <?php
 
 class Database {
-    private $host = "localhost";
+    private $host = "localhost:3306";
     private $db_name = "student_result_system";
     private $username = "root";
     private $password = "user";

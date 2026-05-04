@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Result System - Login</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-96">
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+
+      <!-- Role Buttons -->
+      <div class="flex justify-center mb-6 gap-4">
+        <button
+          onclick="selectRole('student')"
+          class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        >
+          Student
+        </button>
+
+        <button
+          onclick="selectRole('admin')"
+          class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+        >
+          Admin
+        </button>
+      </div>
+
+      <!-- Selected Role -->
+      <p id="roleLabel" class="text-center text-gray-600 mb-4">Select a role</p>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
+        />
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          class="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
+        />
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+        >
+          Login
+        </button>
+      </form>
+
+      <!-- Message -->
+      <p id="message" class="text-center text-sm mt-4"></p>
+    </div>
+
+    <script>
+      let selectedRole = null;
+
+      // Select role
+      function selectRole(role) {
+        selectedRole = role;
+        document.getElementById("roleLabel").innerText = "Login as " + role;
+      }
+
+      // Handle login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          if (!selectedRole) {
+            showMessage("Please select role first", "red");
+            return;
+          }
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:8000/backend/?resource=auth",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  username: username,
+                  password: password,
+                }),
+              },
+            );
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+              // Check role
+              if (result.data.user.role !== selectedRole) {
+                showMessage("Role mismatch!", "red");
+                return;
+              }
+
+              showMessage("Login successful!", "green");
+
+              // Redirect
+              if (selectedRole === "admin") {
+                window.location.href = "pages/admin.html";
+              } else {
+                window.location.href = "pages/student.html";
+              }
+            } else {
+              showMessage(result.message, "red");
+            }
+          } catch (error) {
+            showMessage("Server error", "red");
+          }
+        });
+
+      // Message display
+      function showMessage(msg, color) {
+        const el = document.getElementById("message");
+        el.innerText = msg;
+        el.className = "text-center text-sm mt-4 text-" + color + "-600";
+      }
+    </script>
+  </body>
+</html>

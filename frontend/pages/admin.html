@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 flex">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-800 text-white min-h-screen p-4">
+      <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
+
+      <ul class="space-y-3">
+        <li>
+          <button onclick="loadSection('students')" class="w-full text-left">
+            Students
+          </button>
+        </li>
+        <li>
+          <button onclick="loadSection('subjects')" class="w-full text-left">
+            Subjects
+          </button>
+        </li>
+        <li>
+          <button onclick="loadSection('courses')" class="w-full text-left">
+            Courses
+          </button>
+        </li>
+        <li>
+          <button onclick="loadSection('exams')" class="w-full text-left">
+            Exams
+          </button>
+        </li>
+        <li>
+          <button onclick="loadSection('results')" class="w-full text-left">
+            Results
+          </button>
+        </li>
+      </ul>
+
+      <button
+        onclick="logout()"
+        class="mt-10 bg-red-500 px-3 py-2 rounded w-full"
+      >
+        Logout
+      </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+      <h1 id="title" class="text-2xl font-bold mb-4">Dashboard</h1>
+
+      <div id="formContainer" class="mb-4"></div>
+      <div id="tableContainer"></div>
+    </div>
+
+    <script>
+      const API = "http://localhost:8000/backend/?resource=";
+      let currentResource = "";
+
+      // ================= LOAD SECTION =================
+      async function loadSection(resource) {
+        currentResource = resource;
+        document.getElementById("title").innerText = resource.toUpperCase();
+
+        await renderForm(resource);
+        loadData(resource);
+      }
+
+      // ================= FETCH DATA =================
+      async function loadData(resource) {
+        const res = await fetch(API + resource);
+        const data = await res.json();
+        renderTable(resource, data.data);
+      }
+
+      // ================= TABLE =================
+      function renderTable(resource, data) {
+        if (!data || data.length === 0) {
+          document.getElementById("tableContainer").innerHTML = "No data";
+          return;
+        }
+
+        let html = `<table class="w-full bg-white shadow rounded">
+    <tr class="bg-gray-200">`;
+
+        Object.keys(data[0]).forEach((key) => {
+          html += `<th class="p-2">${key}</th>`;
+        });
+
+        html += `<th>Actions</th></tr>`;
+
+        data.forEach((row) => {
+          html += `<tr class="border">`;
+
+          Object.values(row).forEach((val) => {
+            html += `<td class="p-2">${val}</td>`;
+          });
+
+          html += `
+    <td>
+      <button onclick="deleteItem(${row[Object.keys(row)[0]]})"
+      class="bg-red-500 text-white px-2 py-1 rounded">
+      Delete
+      </button>
+    </td>
+    </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("tableContainer").innerHTML = html;
+      }
+
+      // ================= DATA LOADERS =================
+      async function getCourses() {
+        const res = await fetch(API + "courses");
+        const result = await res.json();
+        return result.data;
+      }
+
+      async function getStudents() {
+        const res = await fetch(API + "students");
+        const result = await res.json();
+        return result.data;
+      }
+
+      async function getSubjects() {
+        const res = await fetch(API + "subjects");
+        const result = await res.json();
+        return result.data;
+      }
+
+      async function getExams() {
+        const res = await fetch(API + "exams");
+        const result = await res.json();
+        return result.data;
+      }
+
+      // ================= FORM =================
+      async function renderForm(resource) {
+        let fields = {
+          students: ["name", "email", "course_id"],
+          subjects: ["subject_name", "credits"],
+          courses: ["course_name"],
+          exams: ["exam_name", "exam_date"],
+          results: ["student_id", "subject_id", "exam_id", "marks"],
+        };
+
+        let html = `<div class="bg-white p-4 rounded shadow flex flex-wrap">`;
+
+        for (let field of fields[resource]) {
+          // STUDENT → COURSE DROPDOWN
+          if (resource === "students" && field === "course_id") {
+            const courses = await getCourses();
+
+            html += `<select id="course_id" class="border p-2 m-1 rounded">
+        <option value="">Select Course</option>`;
+
+            courses.forEach((c) => {
+              html += `<option value="${c.course_id}">
+          ${c.course_name}
+        </option>`;
+            });
+
+            html += `</select>`;
+          }
+
+          // RESULTS → STUDENT DROPDOWN
+          else if (resource === "results" && field === "student_id") {
+            const students = await getStudents();
+
+            html += `<select id="student_id" class="border p-2 m-1 rounded">
+        <option value="">Select Student</option>`;
+
+            students.forEach((s) => {
+              html += `<option value="${s.student_id}">
+          ${s.name}
+        </option>`;
+            });
+
+            html += `</select>`;
+          }
+
+          // RESULTS → SUBJECT DROPDOWN
+          else if (resource === "results" && field === "subject_id") {
+            const subjects = await getSubjects();
+
+            html += `<select id="subject_id" class="border p-2 m-1 rounded">
+        <option value="">Select Subject</option>`;
+
+            subjects.forEach((s) => {
+              html += `<option value="${s.subject_id}">
+          ${s.subject_name}
+        </option>`;
+            });
+
+            html += `</select>`;
+          }
+
+          // RESULTS → EXAM DROPDOWN
+          else if (resource === "results" && field === "exam_id") {
+            const exams = await getExams();
+
+            html += `<select id="exam_id" class="border p-2 m-1 rounded">
+        <option value="">Select Exam</option>`;
+
+            exams.forEach((e) => {
+              html += `<option value="${e.exam_id}">
+          ${e.exam_name}
+        </option>`;
+            });
+
+            html += `</select>`;
+          }
+
+          // DEFAULT INPUT
+          else {
+            html += `
+      <input id="${field}" placeholder="${field}"
+      class="border p-2 m-1 rounded">
+      `;
+          }
+        }
+
+        html += `
+  <button onclick="createItem()" 
+  class="bg-blue-500 text-white px-4 py-2 m-1 rounded">
+  Add
+  </button>
+  </div>`;
+
+        document.getElementById("formContainer").innerHTML = html;
+      }
+
+      // ================= CREATE =================
+      async function createItem() {
+        let inputs = document.querySelectorAll(
+          "#formContainer input, #formContainer select",
+        );
+        let data = {};
+
+        inputs.forEach((input) => {
+          data[input.id] = input.value;
+        });
+
+        await fetch(API + currentResource, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        loadData(currentResource);
+      }
+
+      // ================= DELETE =================
+      async function deleteItem(id) {
+        await fetch(API + currentResource + "&id=" + id, {
+          method: "DELETE",
+        });
+
+        loadData(currentResource);
+      }
+
+      // ================= LOGOUT =================
+      function logout() {
+        fetch(API + "auth", { method: "DELETE" }).then(
+          () => (window.location.href = "../index.html"),
+        );
+      }
+
+      // ================= DEFAULT =================
+      loadSection("students");
+    </script>
+  </body>
+</html>

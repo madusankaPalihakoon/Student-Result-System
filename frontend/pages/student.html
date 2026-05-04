@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 p-6">
+    <h1 class="text-2xl font-bold mb-6">Student Result Dashboard</h1>
+
+    <!-- Student Input -->
+    <div class="bg-white p-4 rounded shadow mb-4">
+      <input
+        id="student_id"
+        type="number"
+        placeholder="Enter Student ID"
+        class="border p-2 rounded mr-2"
+      />
+
+      <button
+        onclick="loadExams()"
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Load Exams
+      </button>
+    </div>
+
+    <!-- Exam Dropdown -->
+    <div class="bg-white p-4 rounded shadow mb-4">
+      <select id="exam_id" class="border p-2 rounded mr-2">
+        <option value="">Select Exam</option>
+      </select>
+
+      <button
+        onclick="loadResults()"
+        class="bg-green-500 text-white px-4 py-2 rounded"
+      >
+        View Results
+      </button>
+    </div>
+
+    <!-- Results -->
+    <div id="resultContainer"></div>
+
+    <script>
+      const API = "http://localhost:8000/backend/?resource=results";
+
+      // ================= LOAD EXAMS =================
+      async function loadExams() {
+        const studentId = document.getElementById("student_id").value;
+
+        if (!studentId) {
+          alert("Enter student ID");
+          return;
+        }
+
+        // 🔥 CALL FILTERED API
+        const res = await fetch(API + "&student_id=" + studentId);
+        const data = await res.json();
+
+        const exams = new Map();
+
+        data.data.forEach((r) => {
+          exams.set(r.exam_name, r.exam_name);
+        });
+
+        const dropdown = document.getElementById("exam_id");
+        dropdown.innerHTML = `<option value="">Select Exam</option>`;
+
+        exams.forEach((name) => {
+          dropdown.innerHTML += `<option value="${name}">${name}</option>`;
+        });
+      }
+
+      // ================= LOAD RESULTS =================
+      async function loadResults() {
+        const studentId = document.getElementById("student_id").value;
+        const examName = document.getElementById("exam_id").value;
+
+        if (!studentId || !examName) {
+          alert("Select exam");
+          return;
+        }
+
+        // 🔥 GET FILTERED DATA FROM BACKEND
+        const res = await fetch(API + "&student_id=" + studentId);
+        const data = await res.json();
+
+        const filtered = data.data.filter((r) => r.exam_name === examName);
+
+        renderTable(filtered);
+      }
+
+      // ================= TABLE =================
+      function renderTable(data) {
+        if (data.length === 0) {
+          document.getElementById("resultContainer").innerHTML =
+            "No results found";
+          return;
+        }
+
+        let html = `<table class="w-full bg-white shadow rounded">
+    <tr class="bg-gray-200">
+      <th class="p-2">Subject</th>
+      <th class="p-2">Exam</th>
+      <th class="p-2">Marks</th>
+      <th class="p-2">Grade</th>
+    </tr>`;
+
+        data.forEach((r) => {
+          html += `
+      <tr class="border">
+        <td class="p-2">${r.subject_name}</td>
+        <td class="p-2">${r.exam_name}</td>
+        <td class="p-2">${r.marks}</td>
+        <td class="p-2">${r.grade ?? "-"}</td>
+      </tr>
+    `;
+        });
+
+        html += `</table>`;
+
+        document.getElementById("resultContainer").innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

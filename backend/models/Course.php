@@ -1,9 +1,9 @@
 <?php
 
-class Subject {
+class Course {
 
     private $conn;
-    private $table = "subjects";
+    private $table = "courses";
 
     public function __construct($db) {
         $this->conn = $db;
@@ -11,26 +11,25 @@ class Subject {
 
     // CREATE
     public function create($data) {
-        $sql = "INSERT INTO {$this->table} (subject_name, credits)
-                VALUES (:name, :credits)";
+        $sql = "INSERT INTO {$this->table} (course_name)
+                VALUES (:course_name)";
 
         $stmt = $this->conn->prepare($sql);
 
         return $stmt->execute([
-            ":name" => $data['subject_name'],
-            ":credits" => $data['credits']
+            ":course_name" => $data['course_name']
         ]);
     }
 
     // READ ALL
     public function getAll() {
-        $sql = "SELECT * FROM {$this->table}";
+        $sql = "SELECT * FROM {$this->table} ORDER BY course_id DESC";
         return $this->conn->query($sql)->fetchAll();
     }
 
     // READ ONE
     public function getById($id) {
-        $sql = "SELECT * FROM {$this->table} WHERE subject_id = :id";
+        $sql = "SELECT * FROM {$this->table} WHERE course_id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([":id" => $id]);
         return $stmt->fetch();
@@ -39,21 +38,20 @@ class Subject {
     // UPDATE
     public function update($id, $data) {
         $sql = "UPDATE {$this->table}
-                SET subject_name = :name, credits = :credits
-                WHERE subject_id = :id";
+                SET course_name = :course_name
+                WHERE course_id = :id";
 
         $stmt = $this->conn->prepare($sql);
 
         return $stmt->execute([
-            ":name" => $data['subject_name'],
-            ":credits" => $data['credits'],
+            ":course_name" => $data['course_name'],
             ":id" => $id
         ]);
     }
 
     // DELETE
     public function delete($id) {
-        $sql = "DELETE FROM {$this->table} WHERE subject_id = :id";
+        $sql = "DELETE FROM {$this->table} WHERE course_id = :id";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([":id" => $id]);
     }
