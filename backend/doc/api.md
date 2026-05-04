@@ -10,8 +10,13 @@ Register
 http://localhost:8000/backend/?resource=auth&action=register
 {
 "username": "user",
-"password": "user",
+"password": "useruser",
 "role": "admin"
+}
+
+{
+"username": "student",
+"password": "studentstudent",
 }
 
 {
