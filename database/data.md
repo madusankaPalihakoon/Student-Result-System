@@ -1,98 +1,80 @@
-Good—this is exactly what you need for **demo + screenshots + viva** 👍
-I’ll give you **clean sample data** for **ALL tables** (with correct relationships).
-
----
-
-# 🗄️ 1. Insert Order (IMPORTANT)
+ 1. Insert Order (IMPORTANT)
 
 You must insert in this order to avoid FK errors:
 
-```text
+text
 courses → students → subjects → exams → users → results
-```
 
----
+ 2. Sample Data (Full SQL)
 
-# 📚 2. Sample Data (Full SQL)
+ Courses (5 rows)
 
-## ✅ Courses (5 rows)
-
-```sql
+sql
 INSERT INTO courses (course_name) VALUES
 ('Information Technology'),
 ('Business Management'),
 ('Engineering'),
 ('Software Engineering'),
 ('Data Science');
-```
 
----
-
-## ✅ Students (5 rows)
-
-```sql
+ Students (5 rows)
+sql
 INSERT INTO students (name, email, course_id) VALUES
 ('Sanjay Madusanka', 'sanjay@gmail.com', 1),
 ('Nimal Perera', 'nimal@gmail.com', 2),
 ('Kamal Silva', 'kamal@gmail.com', 3),
 ('Amara Fernando', 'amara@gmail.com', 4),
 ('Kavindu Jayasinghe', 'kavindu@gmail.com', 5);
-```
 
----
+ Subjects (5 rows)
 
-## ✅ Subjects (5 rows)
-
-```sql
+sql
 INSERT INTO subjects (subject_name, credits) VALUES
 ('Database Systems', 3),
 ('Programming Fundamentals', 4),
 ('Computer Networks', 3),
 ('Software Engineering', 4),
 ('Data Structures', 3);
-```
 
----
+ Exams (5 rows)
 
-## ✅ Exams (5 rows)
-
-```sql
+sql
 INSERT INTO exams (exam_name, exam_date) VALUES
 ('Mid Exam', '2026-05-01'),
 ('Final Exam', '2026-06-15'),
 ('Quiz 1', '2026-04-10'),
 ('Quiz 2', '2026-04-20'),
 ('Assignment', '2026-05-10');
-```
 
----
 
-## 🔐 Users (5 rows)
 
-👉 Passwords must be hashed (IMPORTANT for login)
 
-```sql
+ Users (5 rows)
+
+ Passwords must be hashed (IMPORTANT for login)
+
+sql
 INSERT INTO users (username, password, role, student_id) VALUES
 ('admin', '$2y$10$abcdefghijklmnopqrstuv', 'admin', NULL),
 ('sanjay', '$2y$10$abcdefghijklmnopqrstuv', 'student', 1),
 ('nimal', '$2y$10$abcdefghijklmnopqrstuv', 'student', 2),
 ('kamal', '$2y$10$abcdefghijklmnopqrstuv', 'student', 3),
 ('amara', '$2y$10$abcdefghijklmnopqrstuv', 'student', 4);
-```
 
-⚠️ Replace hash using PHP:
 
-```php
+Replace hash using PHP:
+
+php
 echo password_hash("123456", PASSWORD_DEFAULT);
-```
 
----
 
-## 📊 Results (5+ rows)
 
-👉 Your trigger will auto-generate grade 🔥
 
-```sql
+ Results (5+ rows)
+
+Your trigger will auto-generate grade 
+
+sql
 INSERT INTO results (student_id, subject_id, exam_id, marks) VALUES
 (1, 1, 1, 85),
 (1, 2, 2, 78),
@@ -100,61 +82,46 @@ INSERT INTO results (student_id, subject_id, exam_id, marks) VALUES
 (3, 3, 2, 45),
 (4, 4, 1, 90),
 (5, 5, 2, 55);
-```
 
----
 
-# 🧪 3. Verify Data (IMPORTANT for demo)
+ 3. Verify Data (IMPORTANT for demo)
 
 Run these:
 
-```sql
+sql
 SELECT * FROM students;
 SELECT * FROM subjects;
 SELECT * FROM results;
 SELECT * FROM users;
-```
 
----
 
-# 🔥 4. Test Stored Procedure
+4. Test Stored Procedure
 
-```sql
+sql
 CALL GetStudentResults(1);
-```
 
----
 
-# 👁️ 5. Test View
+5. Test View
 
-```sql
+sql
 SELECT * FROM student_summary;
 SELECT * FROM top_students;
-```
 
----
 
-# ⚠️ 6. Common Issues
+6. Common Issues
 
-## ❌ Foreign key error
+- Foreign key error
+ Insert order wrong
 
-👉 Insert order wrong
+- Login not working
+ Password not hashed correctly
 
----
+- Grade empty
+ Trigger not created or not firing
 
-## ❌ Login not working
 
-👉 Password not hashed correctly
 
----
-
-## ❌ Grade empty
-
-👉 Trigger not created or not firing
-
----
-
-# 🎯 7. What You Achieve
+7. What You Achieve
 
 ✔ Realistic dataset
 ✔ Ready for screenshots
@@ -164,17 +131,7 @@ SELECT * FROM top_students;
 ✔ Perfect for viva demo
 
 ---
-
-# 🚀 Next Step
-
-If you want, I can:
-
-- ✔ Generate **Postman collection (ready testing)**
-- ✔ Create **ER diagram image for PDF**
-- ✔ Build **frontend UI (login + dashboard)**
-- ✔ Write **full PDF documentation**
-
-Just tell me 👍
+Next Step
 
 INSERT INTO results (student_id, subject_id, exam_id, marks) VALUES
 
