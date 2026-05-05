@@ -47,8 +47,6 @@ INSERT INTO exams (exam_name, exam_date) VALUES
 ('Assignment', '2026-05-10');
 
 
-
-
  Users (5 rows)
 
  Passwords must be hashed (IMPORTANT for login)
@@ -66,8 +64,6 @@ Replace hash using PHP:
 
 php
 echo password_hash("123456", PASSWORD_DEFAULT);
-
-
 
 
  Results (5+ rows)
@@ -123,12 +119,12 @@ SELECT * FROM top_students;
 
 7. What You Achieve
 
-✔ Realistic dataset
-✔ Ready for screenshots
-✔ Works with joins
-✔ Works with procedures
-✔ Works with triggers
-✔ Perfect for viva demo
+- Realistic dataset
+- Ready for screenshots
+- Works with joins
+- Works with procedures
+- Works with triggers
+- Perfect for viva demo
 
 ---
 Next Step
