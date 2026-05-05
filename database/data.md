@@ -7,7 +7,7 @@ courses → students → subjects → exams → users → results
 
  2. Sample Data (Full SQL)
 
- Courses (5 rows)
+- Courses (5 rows)
 
 sql
 INSERT INTO courses (course_name) VALUES
@@ -17,7 +17,8 @@ INSERT INTO courses (course_name) VALUES
 ('Software Engineering'),
 ('Data Science');
 
- Students (5 rows)
+- Students (5 rows)
+  
 sql
 INSERT INTO students (name, email, course_id) VALUES
 ('Sanjay Madusanka', 'sanjay@gmail.com', 1),
@@ -26,7 +27,7 @@ INSERT INTO students (name, email, course_id) VALUES
 ('Amara Fernando', 'amara@gmail.com', 4),
 ('Kavindu Jayasinghe', 'kavindu@gmail.com', 5);
 
- Subjects (5 rows)
+- Subjects (5 rows)
 
 sql
 INSERT INTO subjects (subject_name, credits) VALUES
@@ -36,7 +37,7 @@ INSERT INTO subjects (subject_name, credits) VALUES
 ('Software Engineering', 4),
 ('Data Structures', 3);
 
- Exams (5 rows)
+- Exams (5 rows)
 
 sql
 INSERT INTO exams (exam_name, exam_date) VALUES
@@ -46,8 +47,7 @@ INSERT INTO exams (exam_name, exam_date) VALUES
 ('Quiz 2', '2026-04-20'),
 ('Assignment', '2026-05-10');
 
-
- Users (5 rows)
+- Users (5 rows)
 
  Passwords must be hashed (IMPORTANT for login)
 
@@ -65,10 +65,9 @@ Replace hash using PHP:
 php
 echo password_hash("123456", PASSWORD_DEFAULT);
 
+- Results (5+ rows)
 
- Results (5+ rows)
-
-Your trigger will auto-generate grade 
+ trigger will auto-generate grade 
 
 sql
 INSERT INTO results (student_id, subject_id, exam_id, marks) VALUES
