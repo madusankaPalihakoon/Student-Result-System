@@ -34,5 +34,5 @@ REM Create root file
 type nul > index.php
 
 echo.
-echo ✅ Structure created successfully!
+echo  Structure created successfully!
 pause
