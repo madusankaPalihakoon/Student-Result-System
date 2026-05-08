@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <title>Student Result System - Login</title>
 
-    <!-- Tailwind CDN -->
+
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-2xl shadow-lg w-96">
-      <!-- Title -->
+ 
       <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
 
-      <!-- Role Buttons -->
+   
       <div class="flex justify-center mb-6 gap-4">
         <button
           onclick="selectRole('student')"
@@ -30,10 +30,10 @@
         </button>
       </div>
 
-      <!-- Selected Role -->
+   
       <p id="roleLabel" class="text-center text-gray-600 mb-4">Select a role</p>
 
-      <!-- Login Form -->
+
       <form id="loginForm">
         <input
           type="text"
@@ -59,20 +59,20 @@
         </button>
       </form>
 
-      <!-- Message -->
+
       <p id="message" class="text-center text-sm mt-4"></p>
     </div>
 
     <script>
       let selectedRole = null;
 
-      // Select role
+   
       function selectRole(role) {
         selectedRole = role;
         document.getElementById("roleLabel").innerText = "Login as " + role;
       }
 
-      // Handle login
+
       document
         .getElementById("loginForm")
         .addEventListener("submit", async function (e) {
@@ -112,7 +112,7 @@
 
               showMessage("Login successful!", "green");
 
-              // Redirect
+       
               if (selectedRole === "admin") {
                 window.location.href = "frontend/pages/admin.html";
               } else {
@@ -126,7 +126,7 @@
           }
         });
 
-      // Message display
+    
       function showMessage(msg, color) {
         const el = document.getElementById("message");
         el.innerText = msg;
