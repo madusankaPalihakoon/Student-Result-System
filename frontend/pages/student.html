@@ -26,7 +26,7 @@
       </button>
     </div>
 
-    <!-- Exam Dropdown -->
+
     <div class="bg-white p-4 rounded shadow mb-4">
       <select id="exam_id" class="border p-2 rounded mr-2">
         <option value="">Select Exam</option>
@@ -40,13 +40,13 @@
       </button>
     </div>
 
-    <!-- Results -->
+
     <div id="resultContainer"></div>
 
     <script>
       const API = "http://localhost:8000/backend/?resource=results";
 
-      // ================= LOAD EXAMS =================
+   
       async function loadExams() {
         const studentId = document.getElementById("student_id").value;
 
@@ -55,7 +55,7 @@
           return;
         }
 
-        // CALL FILTERED API
+
         const res = await fetch(API + "&student_id=" + studentId);
         const data = await res.json();
 
@@ -73,7 +73,7 @@
         });
       }
 
-      // ================= LOAD RESULTS =================
+     
       async function loadResults() {
         const studentId = document.getElementById("student_id").value;
         const examName = document.getElementById("exam_id").value;
@@ -83,7 +83,7 @@
           return;
         }
 
-        //  GET FILTERED DATA FROM BACKEND
+       
         const res = await fetch(API + "&student_id=" + studentId);
         const data = await res.json();
 
@@ -92,7 +92,7 @@
         renderTable(filtered);
       }
 
-      // ================= TABLE =================
+    
       function renderTable(data) {
         if (data.length === 0) {
           document.getElementById("resultContainer").innerHTML =
