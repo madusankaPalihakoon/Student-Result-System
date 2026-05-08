@@ -11,12 +11,12 @@ class CourseController {
         $this->model = new Course($db);
     }
 
-    // GET ALL
+    
     public function index() {
         Response::success($this->model->getAll());
     }
 
-    // GET ONE
+   
     public function show($id) {
         $data = $this->model->getById($id);
 
@@ -27,7 +27,7 @@ class CourseController {
         Response::success($data);
     }
 
-    // CREATE
+   
     public function store($data) {
 
         if (empty($data['course_name'])) {
@@ -39,7 +39,7 @@ class CourseController {
         Response::success("Course created");
     }
 
-    // UPDATE
+    
     public function update($id, $data) {
 
         if (empty($data['course_name'])) {
@@ -51,7 +51,7 @@ class CourseController {
         Response::success("Course updated");
     }
 
-    // DELETE
+   
     public function destroy($id) {
         $this->model->delete($id);
         Response::success("Course deleted");
