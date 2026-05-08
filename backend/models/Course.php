@@ -9,7 +9,7 @@ class Course {
         $this->conn = $db;
     }
 
-    // CREATE
+    
     public function create($data) {
         $sql = "INSERT INTO {$this->table} (course_name)
                 VALUES (:course_name)";
@@ -21,13 +21,13 @@ class Course {
         ]);
     }
 
-    // READ ALL
+    
     public function getAll() {
         $sql = "SELECT * FROM {$this->table} ORDER BY course_id DESC";
         return $this->conn->query($sql)->fetchAll();
     }
 
-    // READ ONE
+   
     public function getById($id) {
         $sql = "SELECT * FROM {$this->table} WHERE course_id = :id";
         $stmt = $this->conn->prepare($sql);
@@ -35,7 +35,7 @@ class Course {
         return $stmt->fetch();
     }
 
-    // UPDATE
+    
     public function update($id, $data) {
         $sql = "UPDATE {$this->table}
                 SET course_name = :course_name
@@ -49,7 +49,7 @@ class Course {
         ]);
     }
 
-    // DELETE
+    
     public function delete($id) {
         $sql = "DELETE FROM {$this->table} WHERE course_id = :id";
         $stmt = $this->conn->prepare($sql);
