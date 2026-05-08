@@ -23,6 +23,8 @@ class Subject {
     }
 
     
+
+    
     public function getAll() {
         $sql = "SELECT * FROM {$this->table}";
         return $this->conn->query($sql)->fetchAll();
