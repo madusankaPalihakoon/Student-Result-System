@@ -9,6 +9,7 @@ Main Entities
   - Courses 
     
 
+
 2. ER Diagram 
 
 plantuml
