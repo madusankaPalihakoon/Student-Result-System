@@ -105,4 +105,5 @@ switch ($method) {
 
     default:
         Response::error("Invalid request method", 405);
+    
 }
