@@ -9,7 +9,7 @@ class Subject {
         $this->conn = $db;
     }
 
-    // CREATE
+    
     public function create($data) {
         $sql = "INSERT INTO {$this->table} (subject_name, credits)
                 VALUES (:name, :credits)";
@@ -22,13 +22,13 @@ class Subject {
         ]);
     }
 
-    // READ ALL
+    
     public function getAll() {
         $sql = "SELECT * FROM {$this->table}";
         return $this->conn->query($sql)->fetchAll();
     }
 
-    // READ ONE
+    
     public function getById($id) {
         $sql = "SELECT * FROM {$this->table} WHERE subject_id = :id";
         $stmt = $this->conn->prepare($sql);
@@ -36,7 +36,7 @@ class Subject {
         return $stmt->fetch();
     }
 
-    // UPDATE
+    
     public function update($id, $data) {
         $sql = "UPDATE {$this->table}
                 SET subject_name = :name, credits = :credits
@@ -51,7 +51,7 @@ class Subject {
         ]);
     }
 
-    // DELETE
+    
     public function delete($id) {
         $sql = "DELETE FROM {$this->table} WHERE subject_id = :id";
         $stmt = $this->conn->prepare($sql);
