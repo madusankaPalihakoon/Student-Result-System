@@ -150,7 +150,7 @@
         let html = `<div class="bg-white p-4 rounded shadow flex flex-wrap">`;
 
         for (let field of fields[resource]) {
-          // STUDENT → COURSE DROPDOWN
+          
           if (resource === "students" && field === "course_id") {
             const courses = await getCourses();
 
@@ -161,6 +161,7 @@
               html += `<option value="${c.course_id}">
           ${c.course_name}
         </option>`;
+              
             });
 
             html += `</select>`;
