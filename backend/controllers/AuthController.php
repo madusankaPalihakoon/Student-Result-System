@@ -16,9 +16,7 @@ class AuthController {
         }
     }
 
-    /**
-     * LOGIN
-     */
+    
     public function store($data) {
 
         if (empty($data['username']) || empty($data['password'])) {
@@ -45,9 +43,7 @@ class AuthController {
         ]);
     }
 
-    /**
-     * GET CURRENT USER (SESSION)
-     */
+   
     public function index() {
 
         if (!isset($_SESSION['user'])) {
@@ -57,9 +53,7 @@ class AuthController {
         Response::success($_SESSION['user']);
     }
 
-    /**
-     * LOGOUT
-     */
+    
     public function destroy() {
 
         session_destroy();
@@ -67,9 +61,7 @@ class AuthController {
         Response::success("Logged out successfully");
     }
 
-    /**
-     * OPTIONAL: REGISTER USER (ADMIN USE)
-     */
+    
     public function register($data) {
 
         if (empty($data['username']) || empty($data['password']) || empty($data['role'])) {
