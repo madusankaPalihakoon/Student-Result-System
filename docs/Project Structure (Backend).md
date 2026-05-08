@@ -386,6 +386,7 @@ DELETE ?id=1
 
 When inserting users:
 
+
 ```php
 $password = password_hash("123456", PASSWORD_DEFAULT);
 ```
