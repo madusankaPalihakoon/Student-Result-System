@@ -107,7 +107,7 @@ Relationships
 
 6. MySQL Features 
 
-    1. Stored Procedures 
+1). Stored Procedures 
 
 sql
 CREATE PROCEDURE GetStudentResults(IN sid INT)
@@ -120,7 +120,7 @@ BEGIN
 END;
 
 
-   2. Triggers 
+2). Triggers 
 
 
 sql
@@ -138,7 +138,7 @@ BEGIN
 END;
 
 
-3. Views
+3). Views
 
 sql
 CREATE VIEW student_summary AS
@@ -147,14 +147,10 @@ FROM results
 GROUP BY student_id;
 
 
-
-
 4. Index
 
 sql
 CREATE INDEX idx_student_id ON results(student_id);
-
-
 
 
 5. Transaction Example
