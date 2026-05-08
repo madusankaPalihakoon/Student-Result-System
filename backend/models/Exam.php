@@ -57,4 +57,5 @@ class Exam {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([":id" => $id]);
     }
+    
 }
