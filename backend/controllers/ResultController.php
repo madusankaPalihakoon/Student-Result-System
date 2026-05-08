@@ -13,21 +13,21 @@ class ResultController {
 
     public function index() {
 
-        // 🔥 filter by student + exam
+       
         if (isset($_GET['student_id']) && isset($_GET['exam_id'])) {
             Response::success(
                 $this->model->getByStudentAndExam($_GET['student_id'], $_GET['exam_id'])
             );
         }
 
-        // 🔥 filter by student only
+        
         elseif (isset($_GET['student_id'])) {
             Response::success(
                 $this->model->getByStudent($_GET['student_id'])
             );
         }
 
-        // default
+    
         else {
             Response::success($this->model->getAll());
         }
@@ -69,7 +69,7 @@ class ResultController {
         Response::success("Result deleted");
     }
 
-    // 🔥 Custom Endpoint
+    
     public function studentResults($student_id) {
         Response::success(
             $this->model->getStudentResults($student_id)
