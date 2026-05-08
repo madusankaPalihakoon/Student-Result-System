@@ -47,7 +47,7 @@
       </button>
     </div>
 
-    <!-- Main Content -->
+ 
     <div class="flex-1 p-6">
       <h1 id="title" class="text-2xl font-bold mb-4">Dashboard</h1>
 
@@ -59,7 +59,7 @@
       const API = "http://localhost:8000/backend/?resource=";
       let currentResource = "";
 
-      // ================= LOAD SECTION =================
+     
       async function loadSection(resource) {
         currentResource = resource;
         document.getElementById("title").innerText = resource.toUpperCase();
@@ -68,14 +68,14 @@
         loadData(resource);
       }
 
-      // ================= FETCH DATA =================
+     
       async function loadData(resource) {
         const res = await fetch(API + resource);
         const data = await res.json();
         renderTable(resource, data.data);
       }
 
-      // ================= TABLE =================
+      
       function renderTable(resource, data) {
         if (!data || data.length === 0) {
           document.getElementById("tableContainer").innerHTML = "No data";
@@ -112,7 +112,7 @@
         document.getElementById("tableContainer").innerHTML = html;
       }
 
-      // ================= DATA LOADERS =================
+      
       async function getCourses() {
         const res = await fetch(API + "courses");
         const result = await res.json();
@@ -137,7 +137,7 @@
         return result.data;
       }
 
-      // ================= FORM =================
+     
       async function renderForm(resource) {
         let fields = {
           students: ["name", "email", "course_id"],
@@ -166,7 +166,7 @@
             html += `</select>`;
           }
 
-          // RESULTS → STUDENT DROPDOWN
+         
           else if (resource === "results" && field === "student_id") {
             const students = await getStudents();
 
@@ -182,7 +182,7 @@
             html += `</select>`;
           }
 
-          // RESULTS → SUBJECT DROPDOWN
+         
           else if (resource === "results" && field === "subject_id") {
             const subjects = await getSubjects();
 
@@ -198,7 +198,7 @@
             html += `</select>`;
           }
 
-          // RESULTS → EXAM DROPDOWN
+    
           else if (resource === "results" && field === "exam_id") {
             const exams = await getExams();
 
@@ -214,7 +214,7 @@
             html += `</select>`;
           }
 
-          // DEFAULT INPUT
+     
           else {
             html += `
       <input id="${field}" placeholder="${field}"
@@ -233,7 +233,7 @@
         document.getElementById("formContainer").innerHTML = html;
       }
 
-      // ================= CREATE =================
+     
       async function createItem() {
         let inputs = document.querySelectorAll(
           "#formContainer input, #formContainer select",
@@ -253,7 +253,7 @@
         loadData(currentResource);
       }
 
-      // ================= DELETE =================
+      
       async function deleteItem(id) {
         await fetch(API + currentResource + "&id=" + id, {
           method: "DELETE",
@@ -262,14 +262,14 @@
         loadData(currentResource);
       }
 
-      // ================= LOGOUT =================
+
       function logout() {
         fetch(API + "auth", { method: "DELETE" }).then(
           () => (window.location.href = "../index.html"),
         );
       }
 
-      // ================= DEFAULT =================
+     
       loadSection("students");
     </script>
   </body>
