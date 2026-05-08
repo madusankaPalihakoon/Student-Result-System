@@ -54,5 +54,6 @@ class Course {
         $sql = "DELETE FROM {$this->table} WHERE course_id = :id";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([":id" => $id]);
-    }
+    }  
+    
 }
