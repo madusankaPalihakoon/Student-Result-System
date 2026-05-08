@@ -125,4 +125,5 @@ public function getByStudentAndExam($student_id, $exam_id) {
 
     return $stmt->fetchAll();
 }
+    
 }
