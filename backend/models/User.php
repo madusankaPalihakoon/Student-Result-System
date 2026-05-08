@@ -8,6 +8,7 @@ class User {
     public function __construct($db) {
         $this->conn = $db;
     }
+      
 
     public function login($username, $password) {
 
