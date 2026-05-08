@@ -100,10 +100,8 @@ switch ($method) {
             }
             $controller->destroy($id);
         }
-
        break;
      
-
     default:
         Response::error("Invalid request method", 405);
     
